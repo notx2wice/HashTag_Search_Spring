@@ -1,13 +1,16 @@
 package com.example.myjpa.repository;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import java.util.concurrent.ConcurrentHashMap;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Getter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Movie {
     @Id
@@ -17,4 +20,7 @@ public class Movie {
     private String title;
 
     private String director;
+
+    @OneToMany(mappedBy = "movie")
+    private ConcurrentHashMap<String, MovieHashTag> movieHashTags = new ConcurrentHashMap<>();
 }

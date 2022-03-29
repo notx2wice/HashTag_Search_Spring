@@ -1,18 +1,21 @@
 package com.example.myjpa.repository;
 
-import lombok.Getter;
+import lombok.*;
+import javax.persistence.*;
+import java.util.concurrent.ConcurrentHashMap;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Getter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class HashTag {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String content;
+    private Long count;
+
+    @OneToMany(mappedBy = "hashTag")
+    private ConcurrentHashMap<String, MovieHashTag> movieHashTags = new ConcurrentHashMap<>();
 }
